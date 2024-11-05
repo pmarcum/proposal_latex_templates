@@ -1,0 +1,620 @@
+\documentclass[usenames,dvipsnames,modern]{CLASS_FILES/aastex631}  %<=== might need to be altered, depending on where you put this file in your folders
+\usepackage[top=0.9in, left=1in, right=1in, bottom=1.1in]{geometry}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{breakurl}
+\usepackage{hyperref}
+\usepackage{textcomp}
+\usepackage{cleveref}[2012/02/15]
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage[toc,page]{appendix}
+\usepackage{floatrow}
+% the below package allows one to easily adjust spacing within an itemized list
+\usepackage{enumitem}
+
+\usepackage{nicefrac}
+\usepackage{CLASS_FILES/euclid}
+% Table float box with bottom caption, box width adjusted to content
+\newfloatcommand{capbtabbox}{table}[][\FBwidth]
+\usepackage{blindtext}
+\usepackage{capt-of}% or \usepackage{caption}
+\usepackage{booktabs}
+\usepackage{varwidth}
+\usepackage{scrextend}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{colortbl}
+\usepackage{tablefootnote}
+\usepackage{array}
+\usepackage{tocloft}
+
+% allow for wrapping long text strings inside a cell within a table
+\newcolumntype{M}[1]{>{\begin{varwidth}[t]{#1}}l<{\end{varwidth}}}
+
+% place a line at the top with the title to the right and the program name to the left
+\definecolor{WatermarkColor}{HTML}{8887AD}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\color{WatermarkColor}NASA APRA 2024}  % <====  NEEDS TO BE CHANGED TO WHATEVER YOU WANT TO APPEAR IN THE UPPER LEFT CORNER MARGIN AREA
+\fancyhead[R]{\color{WatermarkColor}My Shortened Title} %<=== CHANGE TO WHATEVER YOU WANT TO APPEAR IN THE UPPER RIGHT CORNER MARGIN AREA (should be ~9 words or less, in order to fit on one line)
+\fancyfoot[C]{\thepage}
+
+\titleformat{\section}{\centering\color{NavyBlue}\normalfont\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\centering\color{NavyBlue}\normalfont\large\itshape}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\centering\color{NavyBlue}\normalfont\normalsize}{\thesubsubsection}{1em}{}
+
+\interfootnotelinepenalty=10000
+\crefformat{footnote}{#2\footnotemark[#1]#3}
+% PUT ANY DEFINITIONS YOU WANT TO USE IN THE TEXT, BELOW.  IF NONE OF BELOW IS APPLICABLE TO YOUR PROPOSAL YOU CAN DELETE BELOW LINES
+\newcommand{\HI}{\ion{H}{1}}
+\newcommand{\et}{et al.}
+\newcommand{\kms}{km~s$^{-1}$}
+\newcommand{\s}{$\sim$}
+\newcommand{\n}{$-$}
+\newcommand{\RST}{\emph{Roman}}
+\newcommand{\Euclid}{\emph{Euclid}}
+\newcommand{\Gaia}{\emph{Gaia}}
+\newcommand{\Chandra}{\emph{Chandra}}
+\newcommand{\Hubble}{HST}
+\newcommand{\Spitzer}{\emph{Spitzer}}
+\newcommand{\Galex}{\emph{GALEX}}
+\newcommand{\MASS}{2MASS}
+\newcommand{\WISE}{\emph{WISE}}
+\newcommand{\SDSS}{SDSS}
+\newcommand{\CSNG}{\emph{CSNG}}
+\newcommand{\ud}{\,\mathrm{d}}
+\newcommand{\ue}{\,\mathrm{e}}
+\newcommand{\mpch}{\,{\it h}^{-1}\, {\rm Mpc}}
+\newcommand{\smallIndent}{\textcolor{white}{$--$}}
+% make the vertical space between paragraphs smaller than default
+% THIS SPACING CAN BE ALTERED BY YOU, DEPENDING ON YOUR PREFERENCE (AND NEED FOR SPACE IN THE TEXT!)
+\addtolength{\parskip}{-0pt}
+\newcommand{\magarc}{mag arcsec\ensuremath{^{\mathrm{-2}}}}
+% generate a section that increments the section number counter but does not put a number by the section label nor lists the "fake" section in the table of contents.  
+\newcommand{\nosection}[1]{%
+  \refstepcounter{section}%
+  \markright{#1}}
+
+% THE BELOW IS OPTIONAL, ALLOWS A TEAM MEMBER TO PUT A COLORED COMMENT INTO THE LATEX ITSELF
+\def\square{\vrule height 4.5pt width 4pt depth -0.5pt}
+\def\threesquares{\square~\square~\square\ }
+\def\remark#1{{\threesquares\tt (nota) #1~\threesquares}}
+
+\newcommand{\todo}[1]{{\color{red} [{TODO: #1}]}}
+
+% suppress new paragraph indentation
+% THE BELOW IS OPTIONAL.  IF YOU WANT EACH PARAGRAPH TO BE INDENTED, COMMENT OUT BELOW
+\setlength\parindent{0pt}
+
+% put any extra white space appearing on a page at the bottom of the page
+\raggedbottom
+
+% make the references appear as "blah blah blah [1,3] instead of (1;3)
+%\setcitestyle{square}
+%\setcitestyle{citesep={,}}
+
+% THE BELOW ARE NICE TO USE IN A PROPOSAL.  IF YOU HAVE A SHORT SENTENCE OR TWO THAT YOU WANT TO EMPHASIZE AS A CORE TAKE AWAY
+% POINT, THEN PUT THEM INTO A COLORED BOX
+% create a callout box
+\usepackage{wrapfig}
+\usepackage{tcolorbox}
+\newtcolorbox{callout}[4][]
+{
+colback = #3!5!white,
+colframe = #3!75!black,
+fonttitle = \bfseries,
+title = {#4},
+#2,
+}
+\setlength\cftparskip{3pt}
+\setlength\cftbeforesecskip{2pt}
+\setlength\cftaftertoctitleskip{2pt}
+
+% ================================  BEGINNING OF ACTUAL PROPOSAL =================================
+\begin{document}
+% science justification goes in here --  typically a 15-page limit, BUT CHECK SOLICITATION TO BE SURE!
+
+\tableofcontents
+\addtocontents{toc}{~\hfill\textbf{Page}\par}
+\pagenumbering{roman}
+%\renewcommand{\baselinestretch}{1.0}\normalsize
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%    S C I E N C E / T E C H N I C A L / M A N A G E M E N T    %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%            >>>>>>>>>>  COMPONENT #2 <<<<<<<<<<<<<<<<<
+\pagenumbering{arabic}
+\addcontentsline{toc}{section}{\Large Scientific/Technical/Management Plan}
+\begin{center}\color{NavyBlue}\normalfont\Large\textsc{Scientific/Technical/Management Plan}\end{center}
+\vspace*{-0.5cm}
+
+% ================================
+% SUMMARY THAT GETS ENTERED INTO NSPIRES
+% ================================
+% In spite of their advantageous position above much of the terrestrial atmosphere, visible/infrared space telescopes in low Earth orbits (LEO, < ~2000km) and suborbital platforms are sensitive to a large number of sources of light contamination. Stray light is one of the predominant emission contaminants in optical and infrared observatories, generating artificial gradients, increasing background levels and ultimately affecting detection limits, and is responsible for the loss of valuable exposure time even in flagship observatories like the Hubble Space Telescope. Stray light affecting LEO and suborbital platforms is a complex effect originating from both natural (stars, solar reflection from planets, Earth, Moon) and artificial (night-light pollution from cities, reflected solar radiation from other spacecraft) sources. 
+
+% Previous works by other groups have focused on predicting upper-limits for the integrated flux received by a detector (e.g. no spatial information). Our proposal aims to significantly advance the technology by providing a flexible, publicly available tool to predict and correct the stray light and background contamination of individual exposures. The approach is analytic in nature, using inputs such as observatory and orbital specifications instead of empirical fitting techniques applied to in-flight telescope data which provide no support for observatories in development. The simulations will predict, on a pixel-per-pixel basis, the sky background for a certain exposure taking into account the Zodiacal light, the Milky Way interstellar medium, cosmic background, and the stray light from stars and solar system bodies, including the complex and extended emission from Earth. The tool will quantify the relevance of different contributors to the stray light, information of particular high value to LEO mission development teams and concept studies with science objectives requiring photometry of extended sources. The proposed framework will also benchmark the effects of the rapidly growing satellite mega-constellations (i.e., Starlink, OneWeb) on LEO telescopes, providing the expected frequency of satellite trails in a science exposure for a specified observatory platform. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Abstract}
+\label{Sec:abstract}
+
+% What is straylight
+In spite of their advantageous position above much of the terrestrial atmosphere, visible/infrared telescopes in low Earth orbits and balloon platforms ($h\lesssim2000$ km) are sensitive to a large number of sources of light contamination. Photons that reach the detector out of their intended optical paths are a major source of contamination, generating artificial systematic gradients, increasing background level, and ultimately affecting the limit of detection of space missions. \emph{Stray light} is one of the predominant emission contaminants in imaging, integral field, and grism observations, responsible for some loss of exposure time even in flagship observatories like the \emph{Hubble Space Telescope}.\\
+
+Stray light is a complex effect produced by a large variety of sources, including natural (stars, reflected solar radiation from planets, Earth, Moon) and artificial (night-light pollution from cities, reflected light from other spacecraft). The spatial distribution of the stray light background depends on the relative contributions of all these sources as well as spacecraft characteristics. Previous works by other groups have focused on predicting upper-limits for the integrated flux received by a detector (e.g. no spatial information). Our proposal aims to significantly advance the technology by providing a flexible, publicly available tool  to render a high-resolution model of the stray light gradients across the detector that can be used to repair the contaminated frames. The approach is analytic, using inputs such as observatory and orbital specifications instead of empirical fitting techniques applied to actual data.\\
+
+
+Project \MyName\  will predict, on a pixel-per-pixel basis, the sky background for a certain exposure taking into account the Zodiacal light, the Milky Way interstellar medium, Cosmic Background, and the stray light from stars and solar system bodies, including Earth.  An advantage of an analytical approach is that \MyName\ can quantify the relevance of different contributors (stars, Moon, Earth) to the stray light. The effects of contamination by artificial light pollution will be compared to  natural sources for both general space observations as well as for specific science cases. Finally, our framework will benchmark the effects of the rapidly growing satellite mega-constellations (i.e., \emph{Starlink}, \emph{OneWeb}) on low earth orbit space telescopes, providing estimates to the frequency of satellite trails in the science exposures. 
+
+% and can impede the detection of outer stellar halos in external galaxies, dust galactic cirii in the Milky Way, increase the noise 
+%Why do we care
+%What can we do
+% What do we propose
+% What do we expect to provide
+
+
+
+
+% things to be sure to include in the science justification: 
+% objectives and their significance
+% perceived impact of the work
+% relevance of the work to the program element
+% explain technical approach and methodology
+% discuss potential sources of uncertainty
+% present mitigation strategy or alternate approach given obstacles
+% discus roles of all team members so its clear what they are doing
+% present a work plan, with milestones, management structure
+% present a data sharing and/or archiving plan
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+\label{Sec:introduction}
+The increasing accessibility to space in recent years\footnote{\url{https://ttu-ir.tdl.org/bitstream/handle/2346/74082/ICES_2018_81.pdf}} has prompted  a new generation of versatile telescopes on low earth orbit and suborbital balloon platforms (LEO\footnote{For simplicity, we will refer as LEO telescopes to any orbital or suborbital spacecraft --including balloons-- that operates at altitudes lower than $h\lesssim1000$--$2000$ km over the surface of the Earth.}) that might revolutionize astronomy in the next decade, focusing on specific mission objectives and at a lower cost than observatories located on heliocentric or Lagrangian orbits. LEO telescopes like \emph{Hubble}, GALEX, CHEOPS, and WISE enable astronomy experiments that would be impossible from ground-based telescopes and at lower cost than 2nd Lagrange point (L2) missions, while still providing the benefits of diffraction-limited spatial resolution and increased wavelength range thanks to their vantage location above the Earth's atmosphere. Future optical and NIR LEO observatories like \emph{Skyhopper} \citep{mearns+2018arxiv1808.06746}, \emph{Messier} \citep{vallsgabaud+2017inproceedings_199}, SPHEREx \citep{bock+2018inproceedings_354}, SuperBIT \citep{pascale+2021inproceedings_EPSC2021}, and EXCITE \citep{li+2021inproceedings_132} are designed to detect exoplanets and test for the presence of water, probe cosmology by studying the signatures of galactic mergers on extremely dim stellar halos, find the first signs of the Cosmic Web, and corroborate the early inflation of the Universe. All these objectives rely on the detection of signals thousand of times dimmer than the sky-background and other systematic effects.\\
+
+% , or DUNES\footnote{DUNES iSIM-170 platform: \url{https://satlantis.com/isim-170/}}
+
+% and L2 space observatories like \emph{James Webb, Euclid} and \emph{Nancy Grace Roman} 
+
+% It is not yet understood how the LEO environment affect the observational and calibration of space telescopes at the required levels of precision. 
+%Regardless of orbit altitude, t
+The faint detection limits required of these new telescopes demands an unprecedented leap in the development of new, efficient calibration techniques that mitigate systematic and contamination effects. As a reference, the expected flux on optical/NIR bands from a galactic stellar halo ($\mu<30$ \magarc) is 1500 times dimmer than the average sky-background level achievable above the atmosphere \citep[$\mu=22$ \magarc,][]{gill+2020aj160,borlaff+2021arxiv2108.10321}, requiring the combination of hundreds of single exposures to detect the signal. Most of that background emission comes from the Zodiacal light, created by scattered photons in the interplanetary dust of the solar system. While relatively uniform sources like the Zodiacal light can be modelled and subtracted as a flat background for small FOVs, non-uniform sources of contamination might adversely affect the observations. In particular, stray light is a major contamination concern for orbital and suborbital telescopes  \citep{bely2003book,kuntzer+2014inproceedings_91490W,mora+2016inproceedings_99042D,clermont+2021sci11_10081}.
+%, even in L2 \citep{gasparvenancio+2016inproceedings_99040P}.
+Stray light contamination is produced when photons reach the detector out of their intended optical paths \citep{gasparvenancio+2016inproceedings_99040P}, generating a significant amount of background light and temporally-varying gradients which are extremely difficult to separate from real astronomical sources. Stray light increases the photon noise, setting a hard limit on the faintest source that can be detected with the instruments. Understanding stray light contamination is critically important to the success of future astrophysics missions used for studies of faint, extended sources.\\
+
+ \begin{figure*}[t!]
+ \begin{center}
+ % trim left bottom right top 
+\includegraphics[trim={0 5 0 0}, clip, width=0.33\textwidth]{FIGURES/icxt27hkqAnnot.png}
+\includegraphics[trim={0 0 0 0}, clip, width=0.66\textwidth]{FIGURES/starlink_hstAnnot.png}
+\vspace{-0.8cm}
+\caption{Stray light contamination on \Hubble. \emph{Left:} Single exposure from the \emph{Hubble Ultra Deep Field}; color scale represents the large scale gradient that dominates the image from left ($\mu\sim22.1$ \magarc) to right (limiting magnitude: $\mu\sim28.0$ \magarc), making the background galaxies barely visible. \emph{Right:} Single exposure showing a satellite trail created by \emph{Starlink} 1619.}    
+%\emph{Left:} WFC3/IR F105W single exposure from the \emph{Hubble Ultra Deep Field}, (\texttt{icxt27hkq}, PID: 14227, Papovich, C., August, 6th, 2016). The color scale represents the large scale gradient that dominates the image from left to right in the detector, making the background galaxies barely visible. \emph{Right:} WFC3/UVIS F350LP single exposure showing a large satellite trail created by Starlink 1619, (\texttt{iedk12aoq}, PID: 16183, Porter, S., November 2nd, 2020).}    
+\label{fig:straylight_examples}
+\end{center}
+\end{figure*}
+
+Stray light is a complex phenomenon that can be produced by both natural and artificial sources. For L2 telescopes, the main source are just stars and solar system planets. For LEO telescopes, the main natural stray light source is the Earth. As a reference, the night side of the Earth illuminated by a full moon presents a surface brightness of $\mu_{g}=16.5-18$ \magarc, which is comparable to the central regions of most local galaxies. From an altitude of 600 km, the Earth is an sphere of $\sim$85$^\circ$ in diameter which, when integrated, is equivalent to a source of $m=-10$ mag (SDSS $g$ band) at night. Additional sources of stray light include the Sun, the Moon, solar system planets, and bright stars, and artificial sources such as reflected sunlight from other spacecraft (satellite trails) and even the light pollution from cities, are significantly bright when observing from a few hundreds kilometers from the surface. Figure \ref{fig:straylight_examples} shows two examples of contamination on observations with \Hubble. A single exposure from the \emph{Hubble Ultra Deep Field} \citep{beckwith+2006aj132_1729, illingworth+2013apj209_6,koekemoer+2013apj209_3}, heavily contaminated by a stray light gradient, is shown in the left panel. As \Hubble\ tracks the target, long exposures tend to get closer to the Earth limb, increasing the contamination by stray light. While the observer can attempt to subtract the contamination, these gradients rarely follow an analytical shape. If an observer attempts to fit and remove a smoothed gradient from the image, extended sources like galaxies can easily be confused with the background and inadvertently subtracted, compromising the final science results. This effect,  sky oversubtraction, is responsible for the loss of important signal in extended sources like galaxies \citep{aihara+2011apj193_29}. Another example of contamination is shown in the right panel: a satellite trail created by a \emph{Starlink} satellite on \Hubble\ WFC3/UVIS observations. The trail is extremely large and bright, making the recovery of the underlying emission impossible due to the effect of photon noise. At the time of the observation of this image (November 2020), fewer than 800 \emph{Starlink} satellites were in orbit. By the time of this writing (December 2021), this number has increased to 1755, with 100\,000  planned over the next few years (including \emph{Kuiper, OneWeb} 1 \& 2, and \emph{GuoWang} constellations).\\
+
+%Constellation	In orbit	Planned
+%Starlink	1646	41926
+%Amazon Kuiper	0	3,236
+%OneWeb Phase 1	358	1980
+%OneWeb Phase 2 revised	0	6372
+%GuoWang GW-A59	0	12992
+
+
+Present techniques for modelling stray light have been limited to using FOV-averaged upper-limit limits \citep{gasparvenancio+2016inproceedings_99040P} or simple models that only take into account the Sun with the Earth acting as a perfectly uniform reflecting surface \citep{kuntzer+2014inproceedings_91490W}, omitting information regarding the spatial albedo variations. These simulations calculate average values for the whole focal plane (with no spatial information). Upper-limit estimations averaged over the FOV are adequate for mission planning purposes (i.e., setting the Earth-limb or Sun-avoidance angles) but insufficient to correct individual exposures. \MyName\ will generate simulated observations to predict and correct the stray light contamination across the detector focal plane on a per-pixel basis, improving the calibration of astronomical observations beyond standard techniques. The following will be addressed:
+
+% These types of simulations are not valid for L2 missions, as stars and planets are the primary contributors \citep{borlaff+2021apj921_128} for L2-based observing platforms. 
+
+\begin{enumerate}
+    \item Quantify the integrated effect of natural stray light sources (stars, earthshine, moonshine) and artificial sources (city lights) on the data from an LEO-based telescope.
+    
+    \item Assess the effect of mega-constellations on LEO space missions.
+    
+    \item Develop contamination mitigation strategies using observational (mission planning, calibration) and environmental (artificial light control, orbit modification) approaches.
+    
+\end{enumerate}
+
+Until now, no previous study has explored the effects of stray light on LEO telescopes in a realistic way that includes all main sources of contamination, or with an approach that models the gradients in data taken from space telescopes. The proposed technical leap is supported by the recent availability of observations of key input data -- including the NASA/\emph{Black Marble} \citep{roman+2018RSE210_113}, ESA/\emph{Gaia} catalog \citep{collaboration+2016aap595_2, collaboration+2018aap616_1}, NASA/IPAC background model, and NASA/NOAA VIIRS Earth albedo data products, \citep{liu+2017RSE201_256} -- and prompted by the fast development of artificial light pollution sources, like mega-constellations and city light pollution  \citep{falchi+2016an2_1600377, kocifaj+2021mnras504_40} that might affect or even impede future and also current scientific cases. Our proposal would uniquely contribute to measure and overtake the challenges of astronomy near the Earth and to the preservation of the science integrity of future NASA LEO missions. 
+
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Objectives}
+\label{Sec:objectives}
+
+Motivated by the above challenges, our main objective is to simulate the background emission present in data from an optical/IR imaging instrument on an LEO/suborbital platform whose specifications are to be defined by the user. The model will include the effects of the sky-background (Sec.\,\ref{Subsec:methods_sky}), stray light from unresolved (stars, planets, Sec.\,\ref{Subsec:methods_stars}) and extended sources (Earth, Moon, Sec.\,\ref{Subsec:methods_earth}), as well as reflected light from other spacecraft (Sec.\,\ref{Subsec:methods_satellites}, see Fig.\,\ref{fig:skylayers}). Earth’s emission will be composed by natural reflected light (albedo) and artificial sources (city light pollution). The model will take into account the phases of the Moon and its reflected light on the Earth as viewed from the spacecraft's orbit. In addition, the effects of satellite mega-constellations (\emph{Starlink}, \emph{OneWeb}, \emph{Kuiper}) will be assessed by simulating their trails of reflected sunlight on the images (see Sec.\,\ref{Subsec:methods_satellites}). The simulation will:
+
+\begin{enumerate}
+    \item Enable a comparative study of the severity of stray light contamination sources.
+    \item Provide stray light and background models for custom optical and infrared space-telescope observations, suitable for use as calibration files.
+\end{enumerate}
+
+% , as those predicted by upcoming space telescopes like \emph{Messier}, \emph{Skyhopper}, SPHEREx, and DUNES
+
+The software will enable a comparison between the magnitudes of various stray light sources and a hyper-realistic simulation of astronomical observations. \MyName\ will be modular in design and can be customized to a specific spacecraft environment by inputting orbital or altitude trajectory parameters and observatory specifications, making it an extremely versatile and useful tool for the community.
+
+%While \MyName\ will focus on providing accurate simulations of LEO observational conditions, the applications are not limited to low orbits.  The altitude and Moon-Earth configuration will be defined by the user, and thus \MyName\ will be able to provide even better predictions of the stray light contamination on less complex conditions, like those expected for observatories in Lagragian or high-altitude orbits further away from the surface of the Earth (i.e., \emph{Roman}, \emph{JWST}, \emph{Euclid}), making it an extremely versatile and useful tool for the community.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\MyName\ technical approach}
+\label{Sec:methods}
+\begin{figure*}[t!]
+ \begin{center}
+ % trim left bottom right top 
+\includegraphics[trim={0 0 0 0}, clip, width=\textwidth]{FIGURES/scheme_sources.PNG}
+\vspace{-0.85cm}
+\caption{Schematic decomposition of the different light sources for an optical/NIR LEO telescope. From left to right: Cosmic Background, extra-galactic objects, Milky Way ISM and stars, Zodiacal light, Moon and other solar system bodies, artificial satellites, Earth (artificial and natural emission), and the Sun \citep[AB magnitudes for broad-band filter at 0.75 $\mu$m,][]{borlaff+2021arxiv2108.10321}.}
+\label{fig:skylayers}
+\end{center}
+\end{figure*} 
+
+
+Figure \ref{fig:flow_diagram} schematically demonstrates how the \MyName\ simulations will be generated: First, the user provides the characteristics of the telescope. Inputs include the orbit (Two Line Element set, TLEs) or trajectory for suborbital platforms, the photometric band, field-of-view (FOV), pixel scale, focal plane configuration, detector sensitivity, pointing coordinates, exposure time, and epoch. Based on these parameters, a first image of the background emission is generated based on the Zodiacal light, Milky Way interstellar medium (ISM), Cosmic optical and infrared background flux (Sec.\,\ref{Subsec:methods_sky}), that contains the sky background of the observations. Second, the spacecraft positions are determined relative to the stars, solar system bodies, including Earth for the specific epoch of observation. \MyName\ calculates the stray light model coming from stars located all-sky around the telescope (see Sec.\,\ref{Subsec:methods_stars} for details), which will be combined with the previous layer in the next step.\\ 
+
+At this point, the software initiates a 3D rendering simulation process, where the Moon and the Earth are modeled as extended sources of 1) natural reflected light (Sun and Moon), and 2) artificial light pollution (Sec.\,\ref{Subsec:methods_earth}), and the relative coordinates of the background and point sources (stars, solar system planets) are determined. In parallel, \MyName\ produces a model of the number of satellites illuminated by the Sun and visible for the satellites that might cross the FOV during the exposure, according to the characteristics of the telescope and orbit (Sec.\,\ref{Subsec:methods_satellites}). An expected difficulty of this approach is the change of orientation of the Earth, Sun, and the Moon in long-exposures. To take this effect into account, such exposures are divided into shorter observations  and combined at the end of the previous step. Finally, all these components are combined and the detector image is simulated, with additional layers detailing the composition of the sky background and the probability satellite  trail contaminants. Pipeline outputs include simulated background and stray light exposures, and a panoramic all-sky view of the sources visible from the space-telescope during the exposure. See Sec.\,\ref{subsec:dataTypesVolumesFormats} for details regarding the format and file size of the products.
+
+
+
+\begin{figure*}[t!]
+ \begin{center}
+ % trim left bottom right top 
+\includegraphics[trim={0 0 0 0}, clip, width=\textwidth]{FIGURES/flow_diagram.PNG}
+\vspace{-0.85cm}
+\caption{Flow diagram showing the \MyName\ simulation generation. Blue: input from external publicly available databases. Orange: specific parameters for the simulation, user-provided or estimated. Green: final products (exposures and 360º view from the spacecraft).}
+\label{fig:flow_diagram}
+\end{center}
+\end{figure*}
+%In addition, we will simulate the effect of artificial satellite trails, by adding trails as a function of the exposure time and orbit characteristics.  
+
+%For a given scene (orbit configuration, wavelength, and observation time) the sky background is constructed by a combination of the Zodiacal light, the Cosmic Background, and the ISM emission. We obtain these from the NASA/IPAC Infrared Science Archive (IRSA)\footnote{NASA/IPAC IRSA Sky background Model https://irsa.ipac.caltech.edu/applications/BackgroundModel/}. 
+
+%\abremark{Leftover text}
+%Then we will use the Normalize Detector Irradiance. Introduce the concept of NDI. Give examples of use in \citet{isbrucker+2012inproceedings_84424J}, \citet{klaas+2014EA37_331},   \citet{borlaff+2021apj921_128}. However, no standarized way of estimating the NDI effects have been done using a complete catalog of sources.\\
+
+%Astronomy of dim compact sources. High-z astronomy (HST example). Identification of asteroids (NEOWISE example). The problem of raising the noise level. The problem of reflections by telescopes. \\
+
+%Astronomy of extended dim sources LSB astronomy. The problem of gradients of stray light for large FOV telescopes (Roman / WFI, Euclid / VIS \& NISP). \\
+
+
+%The point spread function (PSF) is a type of stray light, but it can also produce large scale gradients when out-of-field sources are sufficiently bright. For a Low Earth Orbit telescope, there are four main sources of stray light: 1) Sun, 2) Solar System planets (including Earth) and the Moon, 2) Stars, 4) Other spacecraft. Extra-galactic sources (galaxies) are sufficiently dim to play a negligible role in the total amount of stray light. Despite that most LEO space telescopes avoid the sun-lit face of the Earth, (i.e., using polar sun-synchronous orbits), the Earth's night side is not completely dark, and Moon-reflected light, emission and back-scattered light from the high atmosphere, and even light pollution from cities on the surface of the Earth can be a major contributor, all of this increased due its large angular size (XX degrees in diameter at an altitude of 500 km). We would like to answer three important questions:
+\subsection{Sky-background}
+\label{Subsec:methods_sky}
+
+The sky-background, the first component of the proposed simulations, is constructed by a combination of the Zodiacal light, the Cosmic Background, and the ISM emission (see Fig.\,\ref{fig:skylayers}). The NASA/IPAC Infrared Science Archive (IRSA)\footnote{NASA/IPAC IRSA Sky background Model: \url{https://irsa.ipac.caltech.edu/applications/BackgroundModel/}} Background model provides estimates based on observations for the different sky-background components considered in this study including Zodiacal light \citep[based on the models from][to the COBE/DIRBE data]{wright1998apj496_1,gorjian+2000apj536_550}, the emission from the diffuse interstellar medium of our galaxy \citep{arendt+1998apj508_74,schlegel+1998apj500_525,zubko+2004apj152_211, brandt+2012apj744_129}, and the extragalactic background light \citep{mazin+2007aap471_439, chary+2010arxiv1003.1731, dwek+2013afz43_112}. These components are modeled as functions of the observation time, observation wavelength (from $0.5$ to $1000$ \micron), and the sky coordinates. The products generated by IRSA are spectral radiances (MJy sr$^{-1}$), which are wavelength-dependent. The IRSA background products can be readily incorporated into background estimations for custom photometric systems, a consideration that is particularly important when accounting for the spectral energy distribution variations on ultra-wide broad-band filters (i.e., HST/ACS F850LP, \Euclid/VIS, \RST/WFI F146). In a similar fashion, for wide FOV detectors, sky-background might have significant spatial variations across the detector's field. These variations of the Zodiacal light and ISM will be included in the simulation by estimating their intensities in the edges and center of the FOV. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{Stray light from point sources}
+\label{Subsec:methods_stars}
+
+\begin{figure*}[t!]
+ \begin{center}
+ % trim left bottom right top 
+\includegraphics[trim={10 0 10 0}, clip, width=\textwidth]{FIGURES/NDI_euclid_example.png}
+\vspace{-1.3cm}
+\caption{Example of out of field stray light modelling on \Euclid/VIS, adapted from \citet{borlaff+2021arxiv2108.10321}. \textbf{\emph{Left}}: simulation of an observation with \Euclid/VIS near the Orion's Belt; \emph{Red square:} VIS footprint. \emph{Gray circles:} Stars outside focal plane; circle radii are log-scaled to VIS band stellar flux. \emph{Purple circles:} Stray light contamination level at corners and center of VIS focal plane. \textbf{\emph{Right}}: predicted stray light level in e$^-$ per pixel, for the 36 independent CCD VIS detectors.}
+\label{fig:outfield_straylight}
+\end{center}
+\end{figure*}
+
+The normalized detector irradiance \citep[NDI,][]{bely2003book} function serves as a stray light figure of merit for optical systems. The NDI is an estimation of the stray light flux that an off-axis source of a certain magnitude (i.e., a bright star outside the FOV) will generate at a specific position in the detector plane. The NDI is defined as the ratio of the stray light irradiance at the detector (power per unit area) to the irradiance of the source at the entrance of the telescope. In essence, the NDI's radial shape (i.e., how fast the NDI decreases with radius) defines the effectiveness of the telescope's baffling system and shielding from stray light. The NDI is unique to each telescope and strongly dependent on the optics and wavelength. For a given telescope, the NDI depends on the angular distance between  pixel and  source ($\theta$), irradiance of the source ($I$),  position angle of the source in the focal plane reference frame ($\phi$), observation wavelength ($\lambda$), and position in the FOV ($x,y$). As a consequence of the complex dependence of the NDI on the specific characteristics of the detector, optical system, and sources, its solution is usually numerically estimated through ray-tracing simulations and realistic three-dimensional models of the system \citep[i.e., \texttt{ASAP},][]{turner2004inproceedings_333}. When the NDI for a certain source is determined as a function of $\theta$, $\phi$, and its position on the detector is known, the stray light contamination per pixel ($S$, e$^-$\,\si{{\rm px}^{-1}\,{\rm s}^{-1}}) can be computed:
+%
+\begin{equation}
+\label{eq:straylight_estimation_3}
+S(I,\theta,\phi,\lambda,x,y) = {\rm NDI}(\theta,\phi,\lambda,x,y)\,I\,A\,T\, \frac{\lambda_{\rm ref}}{h\,c} \,,
+\end{equation}
+where $h$ is the Planck constant (\si{kg\,m^2\,s^{-1}}), $c$ is the speed of light (\si{m\,s^{-1}}), $I$ (\si{W\,m^{-2}}) is the irradiance created by a source of magnitude $m_{\rm AB}$ at the entrance of the telescope, $\lambda_{\rm ref}$ is the central bandpass wavelength of the filter, $T$ is the average transmission of the system, $A$ is the physical pixel area expressed in m$^2$. For a given telescope, all these parameters are defined through mission requirement development or measured/inferred through on-ground laboratory analyses just as the NDI is determined. \MyName\ will use a broad-range of configurations based on existing and proposed telescopes to explore the complete parameter space, but users will be able to input their own NDI functions and technical parameters. This approach also enables backward analysis methods, for example, to determine the minimum requirement over the NDI so that a mission objective can be completed. The modular nature of the proposed tool will enable an efficient identification of the critical factors and a straightforward assessment of their variation with the mission characteristics (orbit, exposure time, optical design).\\
+
+Using both the defined stray light equation (eq.\,\ref{eq:straylight_estimation_3}) and the irradiance ($I$) of point sources, the stray light on different positions of the detector may be generated. To simulate the stray light produced by stars in optical and infrared bands, we will use the ESA/\Gaia\ \citep{collaboration+2016aap595_2, collaboration+2018aap616_1}, 2MASS\footnote{NASA/IPAC 2MASS catalog: \url{https://irsa.ipac.caltech.edu/Missions/2mass.html}} \citep{skrutskie+2006aj131_1163}, and AllWISE\footnote{WISE Explorer IPAC: \url{https://wise2.ipac.caltech.edu/docs/release/allwise/}} \citep{cutri+2013misc} point source catalogues. The \emph{Gaia} catalog has 10$^9$ sources, including broadband photometry in three bands with a faint limit of $G = 21$ mag and a bright limit of $G\sim6$. Fluxes on additional bands will be generated using calibrated \emph{Gaia} photometric transformations \citep{evans+2018aap616_4}. Since the \emph{Gaia} catalog does not include extremely bright stars, the additional catalog of 230 bright stars ($G<6$ mag) from \citet[][]{sahlmann+2016inproceedings_99042E} will supplement the \emph{Gaia} DR2 catalog. The cross-correlated catalogues of 2MASS (1.235, 1.662, and 2.159 $\mu$m) and AllWISE (3.4, 4.6, 12, and 22 $\mu$m) provide photometry for 5$\cdot$10$^8$ and 7.5$\cdot$10$^8$ objects. In combination with \Gaia, these photometry will support stray light estimations for a broad region of the electromagnetic spectrum ($0.5$--$22\,\mu$m). While 2MASS and AllWISE do not contain as many sources as \Gaia, missing sources between cross-matched catalogues are predominantly very dim and not likely to affect the stray light estimations. We need only  combine the NDI for each source with its flux to obtain the estimated background for an specific exposure. This analysis takes into account the information from all sources around the telescope, even those in the opposite direction to the FOV. Fig.\,\ref{fig:outfield_straylight} presents an example of this type of analysis for an L2 telescope, based on stars from the \emph{Gaia} catalog. The resulting stray light model predicts a complex variation larger than 40\% in intensity across the FOV of the \Euclid/VIS detector \citep{borlaff+2021apj921_128}.\\
+
+Individually estimating the integrated, NDI-weighted flux received simultaneously from approximately 10$^9$ (all-sky) sources for each exposure can be a computationally costly task. The computation can be significantly simplified for sources at relatively high angular distances from the FOV ($\theta>10^{\circ}$--$20^{\circ}$) by regarding sources located within a few arcmin of each other as a single object having a flux equal to the sum of the source fluxes, following the procedure described in \citet{borlaff+2021arxiv2108.10321}. The grouped sources can be defined using a HEALPix\footnote{NASA/JPL HEALPix Project: \url{https://healpix.jpl.nasa.gov/}} cell grid \citep{gorski+2005apj622_759}, while objects closer to the FOV will be modelled individually. For solar system bodies, the associated stray light emission  will be included by their predicted sky positions as functions of time as seen from the telescope location, based on the NASA/JPL HORIZONS ephemeris\footnote{NASA/JPL HORIZONS Online Ephemeris System: \url{https://ssd.jpl.nasa.gov/?horizons}} \citep{giorgini+2001inproceedings_1562}. HORIZONS provides the solar irradiance, albedo, and the illuminated fraction by Sun (phase), as seen by the observer for 1,152,716 asteroids, 3,775 comets, 210 planetary satellites and eight Solar System planets. These data will be used to estimate the magnitudes of Solar System objects for specific photometric bands and will be added to the point source catalog for estimation of stray light as well as flagging their potential passes in the telescope exposures.
+% and the irradiance estimations for the VIS detector from EUCL-ASFT-TN-3-029
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Stray light from extended sources}
+\label{Subsec:methods_earth}
+
+While points sources are responsible for most of the stray light emission for L2 telescopes, extended sources (Earth) are prominent for LEO. The stray light from resolved sources can be simulated by dividing the sources into a series of small cells containing the integrated flux. The stray light is emulated by combining the flux and relative location of each one of these cells with the NDI (see eq.\,\ref{eq:straylight_estimation_3}) as if the cells were point sources (see Sec.\,\ref{Subsec:methods_stars}). The reflected flux from the Earth and  Moon can be calculated by multiplying their irradiance -- the received solar flux -- with the associated albedos. The Moon will be approximated as a reflecting surface with a constant average albedo, taking into account the sunlit portion. However, due to its complexity and larger angular size from LEO (specially for balloon platforms), the inhomogeneities of the Earth's surface cannot be disregarded. The reflected light from the Earth can be estimated from the Bidirectional Reflectance Distribution Function \citep[BRDF,][]{nicodemus+1977misc, schaepmanstrub+2006RSE103_27} which has been estimated thanks to the NASA/NOAA Suomi National Polar-orbiting Partnership (Suomi NPP) and NOAA-20 satellite with the Visible Infrared Imaging Radiometer Suite instrument \citep[VIIRS,][]{liu+2017RSE201_256}. VIIRS observations\footnote{VIIRS data product description: \url{https://www.umb.edu/spectralmass/viirs}} provide the BRDF for the complete surface of the Earth, for 12 optical and infrared bands (0.3 $\mu$m to 5 $\mu$m) with 1\,km of spatial resolution. These observations account for the different reflectance properties of snow, forests, oceans, and continents. Due to the different orientation of the spacecraft to each individual position of the surface of the Earth, the albedo must be calculated from the BRDF independently, taking into account the relative angles of incidence and observation\footnote{MODIS Albedo computation: \url{https://www.umb.edu/spectralmass/terra_aqua_modis/modis_user_tools}}. This software can be directly implemented into our pipeline to account for the variation of the albedo as a function of the observer--surface--Sun angles, and the position over the Earth (e.g. deserts have a higher optical albedo than forests).\\ 
+
+Moreover, we can take advantage of this implementation to include the effect of artificial light pollution into the simulation. NASA/\emph{Black Marble} \citep{roman+2018RSE210_113} is a calibrated imaging suite of the night lights on the surface of Earth obtained with the Day/Night detector of VIIRS Suomi NPP. \emph{Black Marble} high-level data products have been corrected by multiple algorithms, providing cloud-free, atmospheric-, terrain-, vegetation-, snow-, lunar-, and stray light-corrected nighttime radiances. The modeled emission maps (in nW cm$^{-2}$ sr$^{-1}$) are publicly accessible from the project website and  can be directly inputted into the pipeline as sources of light (independent from the sun-reflected light), contributing to the total amount of flux received by a detector from space. The effects of cities can be simulated in way similar to those of any astronomical source, while taking into account the relative orientation and visibility from LEO. Fig.\,\ref{fig:west_coast_light_pollution} demonstrates calibrated NASA/\emph{Black Marble} light pollution maps for New York and Long Island area, compared to ISS images, showing very bright regions with surface brightness of $\mu=12.5$ \magarc\ from LEO. As a reference, the integrated magnitude of Manhattan, Queens, Brooklyn, Bronx, and Staten Island is -4.4 mag, brighter than Venus at its maximum (2.3$\cdot10^{-3}$ Jy arcsec$^{-2}$, for 778 km$^{2}$ at an altitude of 600 km). A limitation of this part of the study is that NASA/\emph{Black Marble} only provides information in a single 0.5--0.9 $\mu$m band, restricting simulation of artificial light pollution to a limited spectral range. However, it will allow us to make the first comparative studies on the effects of artificial light pollution on optical/NIR LEO telescopes.\\
+
+%This means that from the point of view of our LEO telescope, the albedo of the Earth will strongly depend across its extension, due to the relative angle with the Sun, and the surface composition . Conveniently, the albedo map.  
+
+%as a function of time, 
+
+
+\begin{figure*}[t!]
+ \begin{center}
+ % trim left bottom right top 
+\includegraphics[trim={250 430 0 30}, clip, width=0.4\textwidth]{FIGURES/ISS041-E-16721.JPG}
+\includegraphics[trim={0 0 0 30}, clip, width=0.54\textwidth]{FIGURES/ny_sb.png}
+\vspace{-0.25cm}
+\caption{Extended emission of nightlights from Low Earth Orbit. \emph{Left:} Image of New York and Long Island city lights from the International Space Station (NASA ID: \texttt{ISS041-E-16719}). \emph{Right:} Surface brightness in AB magnitudes per arcsec$^2$ generated with the NASA/\emph{Black Marble} data products ($0.5$--$0.9\,\mu$m). As a reference, the Manhattan metropolitan area presents a surface brightness of 12.5 \magarc, almost 2 orders of magnitude brighter than the surface of the Earth illuminated by the full Moon ($\mu\sim17$ \magarc).}
+\label{fig:west_coast_light_pollution}
+\end{center}
+\end{figure*}
+
+After mapping the reflected sunlight and artificial lights from Earth, the flux is divided across individual cells, their visibility is assessed, and we combine the resulting flux with that from  point source catalogues from Sec.\,\ref{Subsec:methods_stars}. Stars an other point sources behind the Earth and the Moon are removed from consideration. The relative location of each source (i.e., angular distance $\theta$, and orientation $\phi$) to each pixel of the detector is calculated using a custom code based on \texttt{Astropy} \citep[][estimation the footprint the detector]{collaboration+2013aap558_33, collaboration+2018aj156_123}, \texttt{Skyfield} \citep[][estimation of the orbits, attitude of the spacecraft]{rhodes2019misc}, and \Blender\ \citep{blender_manual}, an open-source software package aimed at supporting high-resolution production quality 3D graphics and modeling. This software is capable of rendering a 360º view from the point of view of the telescope and estimating the relative positions to all components to the FOV simultaneously. \Blender\ has a Python application program interface (API) for scripting and integration with the rest of the pipeline and it is highly efficient in terms of computation, running parallel processes on a graphics processing unit (GPU). The coordinates of the generated albedo and night-lights emission maps will be incorporated into \Blender\ as surface layers over the model of the Earth to identify the emission from each cell from the point of view of the telescope. \MyName\ will not use \Blender\ to compute flux or brightness; \Blender\ will be only used as a 3D rendering tool that allows an assessment of which sources or regions are/are not visible, and a measure of their respective viewing angles. \Blender's output, 360º panoramic maps from the point of view of the telescope, will provide the position and identification of each source, to be analyzed independently by the rest of the pipeline. In addition, \Blender\ will allow the estimation of the number of potential satellite trails from mega-constellations (see Sec.\,\ref{Subsec:methods_satellites}).\\ 
+% In order to account for that, we will use the Land surfaces reflect surface radiation out over all possible view angles as a function of the scattering behavior of the surface cover and  structure, and the solar illumination in a manner described as the .
+
+%  the estimation of the orbits, attitude of the spacecraft
+
+%We will do this by generating a 3D simulation of the spacecrafts environment, including all the elements and sources of light. Ray-tracing software will be used to identify the projected positions of the sources. Land surfaces reflect surface radiation out over all possible view angles as a function of the scattering behavior of the surface cover and  structure, and the solar illumination in a manner described as the Bidirectional Reflectance Distribution Function (BRDF) \citep{nicodemus+1977misc, schaepmanstrub+2006RSE103_27}. The Sun, Stars, and the solar system planets can be easily modeled as point sources that follow fixed orbits as defined by their ephemeris. However, the Moon and the Earth must be carefully modeled as extended sources. The phase of the Moon affects directly to the radiance of light from the night side of the Earth.\\
+
+
+In summary, \MyName\ will simulate the effects of terrestrial stray light contamination within the detector in a two step process: First, the realistic variation of the albedo across the surface and the angle of the spacecraft (VIIRS BRDF) will be determined. Second, anthropogenic emission from artificial lights as flux sources on the night side (NASA/\emph{Black Marble}) will be included. These two layers will be combined with the sky background (Sec.\,\ref{Subsec:methods_sky}), the stars and other unresolved sources (Sec.\,\ref{Subsec:methods_stars}) on a 3D model, identifying which objects are visible and their locations. The resulting panoramic map provides location and flux of every visible source from the reference frame of the spacecraft, from which angular distance and orientation from the detector plane to all emission sources may be derived. The combining of the NDI with the source map results in the total stray light flux arriving to the detector from any source, on a pixel-by-pixel and exposure-by-exposure basis. Computing this integrated flux for different locations across the detector will generate the simulated observation and predicted stray light gradients.
+
+
+%\subsection{Impact of cities light-pollution on LEO telescopes}
+%\label{subsec:lightpollution}
+
+%We will pay particular attention to the impact of light-pollution on space activities. Artificial light-pollution is a very important limitation for ground-based telescopes, and very few points on Earth are now exempt from it down to some degree. While it is often considered the opposite, space based telescopes are not free from light-pollution. Even in the night, the light from cities is bright enough to produce effects on telescopes on Low earth orbit. \\
+
+%We will take advantage of the NASA Black Marble project (https://blackmarble.gsfc.nasa.gov/) which provides accurate mapping of all these components by separate for every point over the Earth. 
+
+
+%Here we include an image of the surface brightness of a big important city. \\
+
+%Thanks to the detailed data product of the Black Marble project, we can estimate this effect. The combined flux of New York as detected by the VIIRS instrument on Suomi-NPP, is mag = XX.X mag in the V band. This is as bright as X star, or X times the surface brightness of Andromeda galaxy. Considering the optical design of the Euclid spacecraft, at an orbit of 600 km from the surface of the Earth, we can expect a gradient of X flux created by NY alone. If uncorrected, these gradients would impact in the imaging capabilities of such hypothetical telescope.  
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{The impact of satellite constellations}
+\label{Subsec:methods_satellites}
+
+\begin{figure*}[t!]
+ \begin{center}
+ % trim left bottom right top 
+\vspace{-0.5cm}
+\includegraphics[trim={0 0 0 0}, clip, width=\textwidth]{FIGURES/satellite_diagram.png}
+\vspace{-0.85cm}
+\caption{Schematic diagram of satellite trail contamination in LEO. During orbital raise, \emph{Starlink} satellites fly in "open-book" formation, making them brighter to ground-based telescopes due to the large cross-section with  sunlight. During nominal operations, \emph{Starlink} satellites switch to "shark-fin" formation, becoming dimmer to ground-based facilities while significantly increasing cross-section to day/night terminator-aligned sun-synchronous LEO telescopes.}
+\label{fig:satellite_diagram}
+\end{center}
+\end{figure*}
+
+
+The proposed method provides a unique opportunity to explore another potential danger for astronomy in the next decade: the impact of artificial satellite mega-constellations. Until 2019, the largest constellation of artificial satellites was the Iridium system, with 70 spacecraft in LEO. Over the last two years, the number of satellites has increased to more than 2000 (1755 Starlink, 358 OneWeb in orbit, as of December 6th, 2021), and is expected to be up to three orders of magnitude larger by the end of the 2020 decade (94,255 proposed and approved telecommunication satellites, not including military satellite constellations). Early observations of the first \emph{Starlink} satellites in 2019 revealed that they were easily visible to the naked eye, interfering with ground-based observatories at all wavelength ranges \citep{mcdowell2020apj892_36, corbett+2020apj903_27}. While LEO satellites are mostly visible to the naked eye during twilight and sunrise, the sensitivity of most professional telescopes makes their trails clearly visible on scientific observations \citep{dugan2020jaavso48_262}. First estimations predict that for very-wide FOV imaging observations, 30\% of all exposures obtained at the beginning and end of the night will be ruined \citep{hainaut+2020aap636_121}. Mitigation measures were explored and implemented by implementing dark coatings and optical blocking systems, but they have proven to be inefficient \citep{tyson+2020aj160_226}, with only a mild decrease of the optical magnitude of the satellites \citep[from 4.6 to 5.9 mag, in the case of VisorSat,][]{mallama2021arxiv2101.00374}, thus reducing the visual impact for naked-eye observers, but remaining extremely bright for astronomical observatories.\\
+
+While much attention has been gathered about the future of ground-based astronomy, the impact for LEO observatories has been poorly explored. Satellite trails are already affecting \Hubble\ science observations despite its relatively narrow FOV (see Fig.\,\ref{fig:straylight_examples}). Space-telescopes are mostly sensitive to satellites that orbit above their altitude, not below. \emph{Starlink} satellites are located at an altitude of 540 to 570 km, \emph{OneWeb} at 1200 km, while \emph{Kuiper} constellation will be at 590 km. Flying at an altitude of 547 km, \Hubble\ will be affected by all of them, as well as every balloon-borne observatory. The fraction of visible satellites also depends on the pointing direction of the telescope. Day/night terminator-aligned sun-synchronous orbits at highly advantageous for space-telescopes -- like SPHEREx, \emph{Twinkle} \citep{edwards+2020inproceedings_2027}, \emph{Messier}, or \emph{Skyhopper} -- facilitating all-sky surveys and semi-continuous monitoring of certain regions of the sky (see Fig.\,\ref{fig:satellite_diagram}). In this configuration, the telescope is always pointing in the opposite direction of the Sun, with a certain avoidance angle to the limb of the Earth. Unfortunately, sun-synchronous space telescopes are jeopardized by one of the mitigation measures for \emph{Starlink}. 
+%\emph{Starlink} satellites are brighter in their orientation following launch than during nominal operations due to their orientation being parallel to the ground ("open-book" orientation).
+%(open book, see Fig. XX \abremark{Make a figure of this, if we have space}). 
+\emph{Starlink} satellite orientation following launch is in an "open-book" orientation, with major axis of the satellite parallel to the ground to minimize drag during thrusting and orbital rising\footnote{Starlink presentation on AAS 2021: \url{https://aas.org/sites/default/files/2020-06/SpaceX\%20for\%20SIA\%20AAS\%20Astronomy\%20Webinar\%205.26.20.pdf}}. This makes them brighter to ground-based observatories. Upon achieving nominal orbit, the satellites switch to an orientation that is perpendicular to the ground ("shark-fin") to minimize solar reflection to ground-based observers. However, this orientation increases the cross-section from the point of view of a LEO telescope. As the solar panels are oriented towards the Sun, a sun-synchronous LEO telescope can easily receive the reflected light from the solar-panels. While the frequency and intensity of these back-scattering flash events is hard to predict without dedicated simulations, they risk contaminating a non-negligible percentage of exposures. For \HST, the probability \citep{kruk2021misc} of detecting a satellite in the FOV is:
+\begin{equation}
+\label{eq:probability_satellite}
+P = \frac{N_{sat}}{4 \pi}\,f\,A\,\omega\,\Delta t
+\end{equation}
+
+where $\frac{N_{sat}}{4 \pi}$ is the number density of satellites at higher orbits, $f$ is the fraction of satellites visible to the space-telescope and illuminated, $A$ is the FOV, $\omega$ is the angular velocity of the satellites, and $\Delta t$ is the exposure time. The fraction of visible satellites ($f$) is a function of time, orientation, and the orbit of both the satellites and space-telescope. If the proposed satellite constellations become operational, the probability that \Hubble\ ($f\sim7\%$) detects a satellite trail in a 10 minute exposure will be $20\%$ (see Fig.\,\ref{fig:straylight_examples}). While analytical predictions can be obtainable for certain orbits, the actual number, position, and orbit of the mega-constellation satellites is a rapidly changing situation, requiring a simulation approach. The 3D rendering approach of the \MyName\ simulations provide an ideal framework to estimate the amount of visible and sun-illuminated satellites ($f$), allowing the user to calculate the figure of merit for a certain observation. We propose to study the effect of satellite constellations on space-telescopes using two steps of increasing complexity: 
+
+\begin{enumerate}
+    \item Analyze the fraction of satellites that are visible as a continuum probability density function, measuring $f$ as the volume of sun-illuminated and visible objects in orbit.
+    
+    \item Predict the individual trails as discrete objects, identifying those illuminated by the Sun in the 3D rendering process.
+\end{enumerate}
+
+\MyName\ will provide an accurate measurement of the probability that a satellite trail will cross the FOV on specific exposures, information that can be used to quantify and better understand this phenomena and to compare it with other potential contamination sources. In particular, our 3D rendering technique will provide accurate estimations of the fraction of satellites that are visible and illuminated at a given time, as a function of the type of orbit and attitude of the telescope. Such capability is particularly useful for mission planning, and might be critical in the near future to adjust the optimal altitude range and trajectory for a telescope. This module of \MyName\ will complement similar tools created for ground-based telescopes \citep{lawler+2021inproceedings_303, osborn+2022mnras509_1848}, and will provide contamination level predictions for future and present space missions.
+% Since 2019, the number of satellites in orbit has increased exponentially, starting with the Starlink telecomunications project. By the end of the 2020 decade, we expect that this number will increase by two order of magnitude beyond current levels, populating LEO to an unprecedented level. First observations of  do not only affect ground based science, but they can also have the potential to difficult or even impossibility astronomical imaging for LEO telescopes. Changes on orientation for starlink satellites (sharkfin formation) are possitive to mitigate the reflection of light for ground-based observers, but act in detriment of LEO satellites, as they would back-reflect Sun light directly into the observatories. The probability of detecting one of these "flashes" in a particular astronomical image increases directly with the number of satellites, and their number is several order of magnitude higher every X years.  
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Scientific Goals and Perceived Impact of Proposed Work}
+\label{Sec:Summary}
+
+% \emph{MyName} will remain as part of the NASA Software tools repository, supporting and increasing the readiness of NASA initiatives.\textbf{}
+\subsection{Relevance to NASA and APRA Program}
+Stray light viability reports are a costly part of critical design reviews for space missions. Currently, each observatory independently develops their own software to quantify the capabilities of the spacecraft. \MyName\ will join the NASA Software tools repository and be available to the astronomical community including NASA mission development programs, providing a unified method for stray light validation and reducing development time and costs to the design teams.\\
+
+The proposed development of "new data analysis methods or other algorithms/software development" involves maturation of state-of-the-art technologies, including optical and IR background modelling and removal, to support future mission development, as addressed in the D.3 APRA solicitation, Section 1.2.3 Supporting Technology.
+%This proposal falls under the "Supporting Technology" in the APRA program, as the proposed work is a "development of new data analysis methods or other algorithm/software development for future NASA astrophysics missions". 
+Specifically, \MyName\ directly supports LEO observatories including small satellites, CubeSats, and balloon payload developments, all of which are endorsed by the 2020 Decadal Survey\footnote{2020 Decadal Survey Report, Section 4.1, "The Importance of a Balanced Program"}. Because of the broad range of applicability built into its design, and its use of geospatial remote-sensing data sets, \MyName\ is cross-disciplinary. The independent components of \MyName\ have demonstrated functionality, but they need to be integrated into a validated end-to-end software system. The overall proposal is best characterized by TRL\,3. The efforts described in the current proposal would advance the methods to TRL\,5, to demonstrate agreement with analytical predictions and completing a simulated operational environment.
+
+\subsection{Relevance to the Astronomical Community}
+
+% In addition, it will include factors for accounted for in any other stray light analysis, as the effect of artificial light pollution from the ground, or the potential limitations that will arise from telecomunication satellite megaconstellations. 
+
+The proposal is timely, given the looming explosion of light pollution from satellite mega-constellations, a topic urgently highlighted in the 2020 Decadal Survey, recommending federal regulatory agencies to develop and implement a regulatory framework to control the impacts on astronomy\footnote{2020 Decadal Survey Report, Section 3.4.2.1, "Light Pollution from Satellite Constellations"}. In this context, quantifying the magnitude of any potential adverse consequence to space missions becomes increasingly important. While the primary emphasis of the Decadal report is ground-based facilities \citep[e.g., Rubin telescope,][]{tyson+2020aj160_226}, our proposal aims to quantify the impact to LEO space-based platforms. The methodology described here makes use of a multi-platform and multi-disciplinary set of NASA and ESA data products, which are state-of-the-art in their respective fields, to generate the most accurate description to-date of stray light for space telescopes. The techniques described ensure that each part of the \MyName\ project will be highly modular, easily expandable towards other ranges on the electromagnetic spectrum, and applicable to different optical and detector designs (i.e., the point source stray light analysis will be also applicable to more favorable conditions like L2 or Heliocentric, where the uncertainties associated with the extended emission from the Earth are smaller). The generated results can be quickly applied to new and on-going space telescopes in a manner that arms the mission team with information needed to develop mitigation strategies ahead of their operations.
+
+%Deep imaging explorations will allow us to connect the morphology of galaxies with the Cosmic evolution of the universe, revealing for the first time the dim light from the Dark Matter-dominated outer stellar halos, ultra-diffuse galaxies, and the tidal remains of galactic mergers. 
+\subsection{Project Summary}
+Project \MyName\ will serve a dual purpose:\\
+
+$\bullet$ \textbf{The pipeline will provide a versatile tool to calculate the stray light contamination for custom optical and infrared imaging (0.5--5$\mu$m) orbital and suborbital telescopes.} The software will return the expected stray light background gradients caused by the different sources of stray light (stars, planets, Moon, Earth, including natural and artificial components, as well as satellite constellations). These simulated high resolution background images can be used as calibration files for removal of stray light gradients in science images during mission operations. \\
+
+$\bullet$  \textbf{\MyName\ will enable a comparative assessment of contamination} by  three potential sources: 1) stray light contamination from natural sources, 2) light pollution from cities, 3) communication satellite mega-constellations. No comprehensive comparison between these factors has previously been attempted. A goal of this work is to analyze which of these factors are more critical to future and operating space missions, while identifying observing or mission operation strategies to mitigate science impacts to NASA space missions.\\
+
+A new generation of orbital and suborbital telescopes is being prepared to reveal  the extended light from the Dark Matter-dominated outer stellar halos and ultra-diffuse galaxies, the weak signature of exoplanets, and the faint early glimpse of asteroids that might threaten the Earth. These objectives depend on well-calibrated data products. We pay special attention to the stray light, one of the most important contaminants for telescopes. By investigating the effects of light contamination of the Earth as a complex, extended source, including the harmful effects of satellite mega-constellations for astronomy, the proposed work supports orbital and sub-orbital class investigations, advancing NASA astrophysics missions and goals.  
+
+% The proposed tools, to be made public, will provide new data analysis methods and software development for future space NASA astrophysics missions. 
+
+%Additionally, the potentially interesting new types of galaxies revealed in the analysis process could benefit the next generation of NASA optical/IR space observatories including SPHEREx, \emph{James Webb, Euclid} or \emph{Roman}.
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%                     R E F E R E N C E S                       %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%            >>>>>>>>>>  COMPONENT #3 <<<<<<<<<<<<<<<<<
+\addcontentsline{toc}{section}{\Large References}
+% To use the [1],[2],[3] style, use the below "modifiedIEEE"
+% (note: this style is required for dual-anonymous reviews)
+%\bibliographystyle{CLASS_FILES/modifiedIEEE}
+% To use the "Smith et al 2004" style, use the below aasjournal.
+\bibliographystyle{CLASS_FILES/aasjournal}
+% To use a more compact "Smith+2004", use the below:
+%\bibliographystyle{CLASS_FILES/aas4Proposals}
+% Use the Google Drive-based BibFile Manager to easily construct the .bib file used below, and to easily add references to that file as you see the need while writing the proposal. 
+\bibliography{bibFileManager.bib}
+%\input{extractedBib.bbl} 
+
+\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%            D A T A   M A N A G E M E N T   P L A N            %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%            >>>>>>>>>>  COMPONENT #4 <<<<<<<<<<<<<<<<<
+\addcontentsline{toc}{section}{\Large Data Management Plan}
+\begin{center}\color{NavyBlue}\normalfont\Large\textsc{Data Management Plan}\end{center}
+\nosection{dmp}
+\vspace{-0.5cm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Data Management Plan}
+\label{Sec:dataManagementPlan}
+\subsection{Data Types, Volumes, and Formats}
+\label{subsec:dataTypesVolumesFormats}
+The \MyName\ software will be developed as a modular repository in \texttt{Python}. The repository will include the software that downloads data from the NASA/\emph{Black Marble}, ESA/\emph{Gaia}, JPL/IPAC background and HORIZONS ephemeris, and the NASA/NOAA VIIRS archive, tools to simulate the focal planes, including the configuration of known observatories (\emph{Roman}/WFI, \Euclid VIS and NISP, \HST WFC3 and ACS), all internal processing pipeline, and the API that generates the 3D rendering analysis with \Blender. The user will provide input and configuration parameters in the format of simple \texttt{csv} files or \texttt{vo-tables} to specify information including detector related characteristics (i.e., wavelength, transmission, exposure time, read-out noise) and spacecraft orbital parameters (TTLEs, epoch, pointing). Final data products, including stray light background mosaics and 360º rendering views of the scene, will be range from approximately 100~Mb per exposure (for \HST/ACS or WFC3 like detectors) to 2-3 Gb per exposure (for a 16 4096$\times$4096 detector focal plane of \emph{Roman}/WFI), but it will be defined by the user. The proposing team members have considerable experience archiving data and software. Tasks associated with implementing the Data Management Plan (DMP) are explicitly included in the requested work effort (Table \ref{tab:anonTimeline}).\\ 
+
+\textbf{Proposed deliverables include:}\\
+\textbf{Software:} \MyName\ stray light data pipeline;\\  \textbf{Products:} Measurement of the relative intensity of different stray light sources, in terms of 1) absolute stray light flux and 2) intensity of stray light gradients.\\\\ 
+\emph{Note that the above is a notional list to be refined through the course of the project.}
+%\vspace*{1ex}
+
+
+\subsection{Data \& Software Distribution}
+\label{subsec:dataAvailability}
+The \MyName\ repository will be made public through the NASA \texttt{GitHub} by end of Year~2 and archived with a permanent \texttt{doi} on \texttt{Zenodo} accompanied by publications in suitable professional journals (e.g. AJ, PASP, IEEE). Publication 2 will analyze a series of test cases on LEO and L2 orbits, which will be released as \texttt{Jupyter} notebooks and archived with the software. Final data products (stray light mosaics, 360º panoramic view maps) will be fully reproducible from the publicly available code, with minimal storage required. The implementation of future upgrades to the external software packages (\texttt{Blender}) will be straightforward. Expected intermediate products, such as Zodiacal light, ISM and CIB maps, or BDRF estimations for Sun-Earth-Telescope configuration will require minimal storage, and will be easily reproducible from the pipeline as additional output from \MyName.
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%            B I O G R A P H I C A L   S K E T C H E S          %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%            >>>>>>>>>>  COMPONENT #5 <<<<<<<<<<<<<<<<<
+\addcontentsline{toc}{section}{\Large Biographical Sketches}
+\begin{center}\color{NavyBlue}\normalfont\Large\textsc{Biographical Sketches}\end{center}
+\label{Sec:bioSketches}
+% The bio files are now located in a central place so that they can be continuously updated and used for all proposals simply by linking to them.  Maintenance will be substantially easier by having to keep track of a single folder within Overleaf.
+\input{TABLES_BIOS/BIO-marcum}
+\newpage
+\input{TABLES_BIOS/BIO-borlaff}
+\newpage
+\input{TABLES_BIOS/BIO-pinilla}
+\newpage
+\input{TABLES_BIOS/BIO-gomez-alvarez}
+\newpage
+\input{TABLES_BIOS/BIO-palos}
+\newpage
+\input{TABLES_BIOS/BIO-kruk}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%          P E R S O N N E L   &   W O R K   E F F O R T        %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%            >>>>>>>>>>  COMPONENT #6 <<<<<<<<<<<<<<<<<
+\addcontentsline{toc}{section}{\Large Personnel and Work Effort}
+\begin{center}\color{NavyBlue}\normalfont\Large\textsc{Personnel and Work Effort}\end{center}
+\nosection{personnel}
+\label{Sec:personnelWorkEffort}
+A three-year project is planned for two funded participants and four (unfunded) collaborators. Two of the four collaborators are PhD students. The specific sub-tasks that each member will support are detailed below in Table\,\ref{tab:anonTimeline}. The level of effort for each team member is provided in Table\,\ref{tab:notAnonFTE}. In Section~\ref{subsec:personnelOverview} , we give an overview of areas of expertise and the proposing team members' general roles and responsibilities.\\
+
+\subsection{Personnel Overview}
+\label{subsec:personnelOverview}
+% The below is generated from the Google Work Plan tool.  To make changes to the below list of people, make changes to the Google spreadsheet, hit "Make Latex Tables" and then do a "refresh" on the TABLES_BIOS/NOTANONteamSummaries file. 
+\input{TABLES_BIOS/NOTANONteamSummaries}
+\subsection{Publication and Dissemination}
+
+Our proposed work will produce at least 3 publications, for which publication costs are covered by the proposed budget: 
+\begin{enumerate}
+    \item \textbf{Publication I:} \emph{Stray light gradients from extended sources in LEO}, will explore the nature of stray light emission received by LEO space telescopes. The study will analyze the relative intensity of contamination from the reflected light on the surface of the Earth against point sources. This study will use existing \HST\ imaging observations (see Fig.\,\ref{fig:straylight_examples}) as models to correct, and will provide predictions for future optical/IR telescopes.
+    
+    \item  \textbf{Publication II:} \emph{The \MyName\ stray light simulation tool}, will be the first release of the \MyName\ software. This paper will detail the simulation method, provide a detailed analysis of the LEO and L2 space telescope cases, and will include a link to the publicly-available pipeline. \MyName\ will be released in parallel as part of a public repository associated with reproducible tutorials on \emph{Zenodo}.
+    
+     \item \textbf{Publication III:} \emph{Night-light pollution and mega-constellation effects in LEO} will explore the relative contamination levels produced by artificial vs. natural sources. We will focus on characterizing a) the flux received from night city-lights for different types of orbit (equatorial, sun-synchronous) and altitudes, b) the probability of detecting a satellite trail as a function of the altitude, pointing, FOV, and different populations of satellite mega-constellations. This paper will determine the relative exposure time lost due to these contaminants against that from natural sources. 
+\end{enumerate}
+
+\subsection{Work Plan}
+\label{subsec:timeline}
+% Use the Google Drive-based Proposal Work PLan Tool to easily construct the NOTANONpersonnel_work_effort.tex file
+\vspace{0.2cm}
+
+The work effort (FTE and WYE) are shown in the following table:\\
+\input{TABLES_BIOS/NOTANONpersonnel_work_effort}
+\subsection{Project Milestones and Management}
+% Use the the Google Drive-based Proposal Work Plan Tool to easily make the anonTimeline file
+\input{TABLES_BIOS/anonTimeline}
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%         C U R R E N T  &  P E N D I N G  S U P P O R T        %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%            >>>>>>>>>>  COMPONENT #7 <<<<<<<<<<<<<<<<<
+\addcontentsline{toc}{section}{\Large Current and Pending Support}
+\begin{center}\color{NavyBlue}\normalfont\Large\textsc{Current and Pending Support}\end{center}
+\label{Sec:currentPendingSupport}
+% update the pending and current support files in the separate Overleaf project  entited "BIO SKETCHES" 
+\input{TABLES_BIOS/CurrentPendingSupport-Marcum}
+\input{TABLES_BIOS/CurrentPendingSupport-Borlaff}
+\vspace{-0.5cm}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%         S T A T E M E N T S  O F  C O M M I T M E N T         %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%            >>>>>>>>>>  COMPONENT #8 <<<<<<<<<<<<<<<<<
+\addcontentsline{toc}{section}{\Large Statements of Commitment}
+\begin{center}\color{NavyBlue}\normalfont\Large\textsc{Statements of Commitment}\end{center}
+\label{Sec:statementsOfCommitment}
+All proposing team members have acknowledged their participation via NSPIRES.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%                        B U D G E T                           %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%            >>>>>>>>>>  COMPONENT #9 <<<<<<<<<<<<<<<<<
+\addcontentsline{toc}{section}{\Large Budget}
+\begin{center}\color{NavyBlue}\normalfont\Large\textsc{Budget}\end{center}
+\nosection{budget}
+\label{sec:Budget}
+\vspace{-0.5cm}
+\subsection{Budget Narrative}
+\label{subsec:budgetNarrative}
+The majority of the budget is used to fund the Science PI at 1 FTE for three years. A smaller portion of the budget is used to fund the PI for primarily project oversight/management tasks (see Table\,\ref{tab:notAnonFTE}),  equipment needs and travel by the Science PI to three science conferences (see Table\,\ref{tab:equipment}). Requested equipment funding will be used to replace the Science PI's aging laptop ($>$ 6 years) that is beginning to fail. The modest travel requests cover two domestic and one international conference trips for the Science PI for the last two years of the grant. Each of the trips assumes a 5-day conference; details are provided in the notes under Table~\ref{tab:NOTANONtravel}. The Science PI will be using carry-over travel funds from previous years of his NASA Postdoctoral Program appointment to fund the travel for the first year of this proposal. The PI requests no travel funds. \\
+
+One of the (unfunded) collaborators is a PhD student (A. Pinilla). He is providing small labor contributions which are entirely compatible with the scope of his current position (see Table~\ref{tab:anonTimeline}) and will serve as a component of the student's educational experience. 
+
+\subsection{Facilities and Equipment}
+Sufficient facilities and computing resources are available at the home institutions of the team members to complete the proposed work. The Science PI has a Mac desktop  sufficient to meet the demands of the image reduction and analysis tasks. For specific computational tasks, including 3D rendering simulations of extensive sets of exposures, the research team has a research-grade  Linux server with 40 parallel processors, 128 Gb of RAM, and 10 Tb of disk space, located at NASA Ames Research Center. \\
+
+
+\newpage
+\subsection{Other Direct Costs}
+\input{TABLES_BIOS/NOTANONtravel_details}
+
+\newpage
+\input{TABLES_BIOS/NOTANONequipment_supplies_rolledUpTravel_publications}
+
+\newpage
+\subsection{Full Redacted Budget}
+\begin{figure*}[b!]
+ \begin{center}
+ % trim left bottom right top 
+\includegraphics[trim={0 1in 0 0}, clip, width=\textwidth]{FIGURES/21-APRA21_2-XXXX,Marcum,Natural and Artificial Str,121421,REDACTED BUDGET.pdf}
+\vspace{-0.85cm}
+\end{center}
+\end{figure*}
+
+
+
+\
+\end{document}
